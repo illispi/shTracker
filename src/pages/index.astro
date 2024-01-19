@@ -2,6 +2,9 @@
 import Layout from "../layouts/Layout.astro";
 import Card from "../components/Card.astro";
 import Test from "../components/Test";
+import { getGreeting } from "../api/initialData";
+
+const greeting = await getGreeting();
 ---
 
 <Layout title="Welcome to Astro.">
@@ -35,7 +38,7 @@ import Test from "../components/Test";
       </defs>
     </svg>
     <h1>Welcome to <span class="text-gradient">Astro</span></h1>
-    <Test client:only />
+    <Test data={greeting} client:only />
     <p class="instructions">
       To get started, open the directory <code>src/pages</code> in your project.<br
       />

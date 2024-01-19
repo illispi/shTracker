@@ -7,7 +7,9 @@ import {
 } from "@tanstack/solid-query";
 
 const TestSub: Component<{}> = (props) => {
-  const test = trpc.greeting.useQuery(undefined);
+  const test = trpc.greeting.useQuery(undefined, () => ({
+    initialData: () => props.data.result.data,
+  }));
 
   //   const query = createQuery(
   //     () => ({
@@ -23,10 +25,10 @@ const TestSub: Component<{}> = (props) => {
   return <div>{test.data}</div>;
 };
 
-const Test = () => (
+const Test = (props) => (
   <QueryClientProvider client={queryClient}>
     <trpc.Provider queryClient={queryClient}>
-      <TestSub />
+      <TestSub data={props.data} />
     </trpc.Provider>
   </QueryClientProvider>
 );
