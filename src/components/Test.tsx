@@ -1,10 +1,34 @@
 import { type Component } from "solid-js";
-import { trpc } from "../utils/trpcClient";
+import { queryClient, trpc } from "../utils/trpcClient";
+import {
+  QueryClient,
+  QueryClientProvider,
+  createQuery,
+} from "@tanstack/solid-query";
 
-const Test: Component<{}> = (props) => {
-  const test = trpc.greeting.useQuery();
+const TestSub: Component<{}> = (props) => {
+  const test = trpc.greeting.useQuery(undefined);
+
+  //   const query = createQuery(
+  //     () => ({
+  //       queryKey: ["test"],
+  //       queryFn: async () => {
+  //         await new Promise((r) => setTimeout(r, 1000));
+  //         return "Success";
+  //       },
+  //     }),
+  //     () => queryClient
+  //   );
 
   return <div>{test.data}</div>;
 };
+
+const Test = () => (
+  <QueryClientProvider client={queryClient}>
+    <trpc.Provider queryClient={queryClient}>
+      <TestSub />
+    </trpc.Provider>
+  </QueryClientProvider>
+);
 
 export default Test;

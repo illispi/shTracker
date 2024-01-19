@@ -3,7 +3,7 @@ import { type QueryClient } from "@tanstack/solid-query";
 import { type CreateTRPCClientOptions } from "@trpc/client";
 import { type AnyRouter, type MaybePromise } from "@trpc/server";
 import type Solid from "solid-js";
-import { type PageEvent } from "solid-start";
+// import { type PageEvent } from "solid-start";
 
 /**
  * @internal
@@ -39,5 +39,5 @@ export interface CreateTRPCSolidOptions<TRouter extends AnyRouter> {
    * @default undefined
    */
   solidQueryContext?: Solid.Context<QueryClient | undefined>;
-  config: (event?: PageEvent) => CreateTRPCClientOptions<TRouter>;
+  config: (event) => CreateTRPCClientOptions<TRouter>;
 }
