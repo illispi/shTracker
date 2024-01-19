@@ -1,6 +1,7 @@
 import { QueryClient } from "@tanstack/solid-query";
 import { createTRPCClient, httpBatchLink } from '@trpc/client';
 import type { AppRouter } from '../server/router';
+import { createTRPCSolidStart } from "../deps/trpcFork";
 
 
 const getBaseUrl = () => {
@@ -12,7 +13,7 @@ const getBaseUrl = () => {
   }`;
 };
 
-export const trpc = createTRPCClient<AppRouter>({
+export const trpc = createTRPCSolidStart<AppRouter>({
   config() {
     return {
       links: [

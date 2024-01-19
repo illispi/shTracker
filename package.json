@@ -14,9 +14,15 @@
     "@astrojs/node": "^8.0.0",
     "@astrojs/solid-js": "^4.0.1",
     "@astrojs/tailwind": "^5.1.0",
+    "@tanstack/solid-query": "^5.17.15",
+    "@trpc/client": "^10.45.0",
+    "@trpc/server": "^10.45.0",
     "astro": "^4.2.1",
     "solid-js": "^1.8.11",
     "tailwindcss": "^3.4.1",
     "typescript": "^5.3.3"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.5"
   }
 }
