@@ -10,6 +10,7 @@ const TestSub: Component<{}> = (props) => {
   const test = trpc.greeting.useQuery(undefined, () => ({
     initialData: () => props.data.result.data,
   }));
+ 
 
   //   const query = createQuery(
   //     () => ({
@@ -23,6 +24,8 @@ const TestSub: Component<{}> = (props) => {
   //   );
 
   return <div>{test.data}</div>;
+ 
+  
 };
 
 const Test = (props) => (
