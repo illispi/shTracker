@@ -51,7 +51,11 @@ async function parseJson(dir: string[]) {
 
       for (let i = 0; i < jsonData.length; i++) {
         if (jsonData[i].Paino !== "" && typeof jsonData[i].Paino === "number") {
-          arr.push({ weight: jsonData[i].Paino, date: jsonData[i]["P�iv�"] });
+          const [day, month, year] = jsonData[i]["P�iv�"].split(".");
+          arr.push({
+            weight: jsonData[i].Paino,
+            date: new Date(`${year}-${month}-${day}`),
+          });
         }
       }
       console.log("🚀 ~ fs.readFile ~ arr:", arr);
