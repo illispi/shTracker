@@ -1,12 +1,11 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import { getGreeting } from "../api/initialData";
+import IndexPage from "../components/IndexPage";
 
 const greeting = await getGreeting();
 ---
 
-<Layout title="Welcome to Astro.">
-  <main>
-    <p>FGTAWGESGHESGESGSEGESGES</p>
-  </main>
+<Layout title="Welcome to Sh-Tracker.">
+  <IndexPage />
 </Layout>
