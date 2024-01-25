@@ -8,6 +8,8 @@ major-main/
 
 *.env
 
+data/
+
 # dependencies
 node_modules/
 
