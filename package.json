@@ -11,7 +11,8 @@
     "migrate:latest": "tsx ./src/utils/migrate.ts",
     "migrate:down": "tsx ./src/utils/migrate.ts down",
     "new:migration": "tsx ./src/utils/migrationFilename.ts",
-    "sqlTypes": "pnpm kysely-codegen --dialect postgres"
+    "sqlTypes": "pnpm kysely-codegen --dialect postgres",
+    "loadJson": "tsx ./src/utils/parseJson.ts"
   },
   "dependencies": {
     "@astrojs/check": "^0.4.1",
