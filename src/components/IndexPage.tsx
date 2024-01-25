@@ -6,8 +6,8 @@ import ExerciseIcon from "./ExerciseIcon";
 
 const IndexSub: Component<{}> = (props) => {
   return (
-    <div class="w-full min-h-screen">
-      <div class="flex-col flex">
+    <div class="w-full min-h-screen flex-col flex justify-start items-center lg:justify-center">
+      <div class="flex-col flex justify-center items-center">
         <WeightIcon />
         <ExerciseIcon />
       </div>
