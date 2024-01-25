@@ -7,6 +7,6 @@ export const ALL: APIRoute = (opts) => {
     endpoint: '/trpc',
     req: opts.request,
     router: appRouter,
-    // createContext,
+    createContext,
   });
 };

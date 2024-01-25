@@ -1,7 +1,7 @@
 import { TRPCError, initTRPC } from "@trpc/server";
-import type { IContext } from "./context";
+import type { TRPCContext } from "./context";
 
-export const t = initTRPC.context<IContext>().create();
+export const t = initTRPC.context<TRPCContext>().create();
 
 export const router = t.router;
 export const publicProcedure = t.procedure;
@@ -17,64 +17,4 @@ export const apiProcedure = publicProcedure.use((opts) => {
     },
   });
 });
-export const userProcedure = apiProcedure.use(async (opts) => {
-  if (opts.ctx.session) {
-    const user = await opts.ctx.db
-      .selectFrom("auth_user")
-      .select(["id", "role"])
-      .where("id", "=", opts.ctx.session.user?.userId)
-      .executeTakeFirstOrThrow();
 
-    if (!user) {
-      throw new TRPCError({
-        code: "INTERNAL_SERVER_ERROR",
-        message: "User was not found",
-      });
-    }
-
-    return opts.next({
-      ctx: {
-        user,
-      },
-    });
-  }
-
-  throw new TRPCError({
-    code: "UNAUTHORIZED",
-    message: "You are not authorized",
-  });
-});
-export const adminProcedure = apiProcedure.use(async (opts) => {
-  if (opts.ctx.session) {
-    const user = await opts.ctx.db
-      .selectFrom("auth_user")
-      .select(["id", "role"])
-      .where("id", "=", opts.ctx.session.user?.userId)
-      .executeTakeFirstOrThrow();
-
-    if (!user) {
-      throw new TRPCError({
-        code: "INTERNAL_SERVER_ERROR",
-        message: "User was not found",
-      });
-    }
-
-    if (user.role === "admin") {
-      return opts.next({
-        ctx: {
-          user,
-        },
-      });
-    }
-
-    throw new TRPCError({
-      code: "UNAUTHORIZED",
-      message: "You are not authorized",
-    });
-  }
-
-  throw new TRPCError({
-    code: "UNAUTHORIZED",
-    message: "You are not authorized",
-  });
-});
