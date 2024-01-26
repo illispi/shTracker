@@ -1,10 +1,35 @@
 import { QueryClientProvider } from "@tanstack/solid-query";
 import { For, type Component, Show } from "solid-js";
 import { queryClient, trpc } from "../../utils/trpcClient";
-import WeightInTime from "../WeightInTime";
+import type { inferRouterOutputs } from "@trpc/server";
+import type { AppRouter } from "../../server/router";
+
+type RouterOutput = inferRouterOutputs<AppRouter>;
+
+type WeightsDates = RouterOutput["readWeights"];
 
 const IndexSub: Component<{}> = (props) => {
   const weightsDates = trpc.readWeights.useQuery();
+
+  const lostOrGained = (weeks: number, weightsDates: WeightsDates) => {
+    if (weeks === 1) {
+      if (weightsDates.length < 2) {
+        return false;
+      } else {
+        const result =
+          Number(weightsDates[weightsDates.length - 1].weight) -
+          Number(weightsDates[weightsDates.length - 2].weight);
+
+        return result;
+      }
+    }
+    const startDate = weightsDates[weightsDates.length - 1];
+    let date = new Date();
+    date.setDate(date.getDate() - 32);
+
+    return date.toISOString();
+  };
+
   return (
     <div class="flex min-h-screen w-full flex-col items-center justify-start lg:justify-center">
       <div class="flex w-full flex-col items-center justify-center">
@@ -23,11 +48,9 @@ const IndexSub: Component<{}> = (props) => {
         </div>
         <Show when={weightsDates.data}>
           {(data) => (
-            <WeightInTime
-              text="last week"
-              weeks={1}
-              weightsDates={data()}
-            />
+            <Show when={lostOrGained(1, data())} fallback="Weigh yourself to see progress!">
+              
+            </Show>
           )}
         </Show>
         <For each={weightsDates.data}>
