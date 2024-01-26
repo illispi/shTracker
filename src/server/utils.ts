@@ -6,6 +6,7 @@ export const t = initTRPC.context<TRPCContext>().create();
 export const router = t.router;
 export const publicProcedure = t.procedure;
 export const apiProcedure = publicProcedure.use((opts) => {
+  console.log(opts);
   if (!opts.ctx.req || !opts.ctx.res) {
     throw new Error("You are missing `req` or `res` in your call.");
   }
@@ -17,4 +18,3 @@ export const apiProcedure = publicProcedure.use((opts) => {
     },
   });
 });
-
