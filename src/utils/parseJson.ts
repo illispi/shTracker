@@ -13,7 +13,7 @@ const __dirname = fileURLToPath(new URL("../../", import.meta.url));
 async function parseJson(dir: string[]) {
   console.log(dir);
 
-  const db = new Kysely<any>({
+  const db = new Kysely<DB>({
     //TODO replace any with Database types
     log: ["error", "query"],
     dialect: new PostgresDialect({
@@ -35,34 +35,36 @@ async function parseJson(dir: string[]) {
   console.log(__dirname, "dirdir");
 
   const filePath = path.join(__dirname, "data/painonpudotuslogi.json");
+  let arr = [];
 
   // Read the content of the JSON file
-  fs.readFile(filePath, "utf8", (err, data) => {
-    if (err) {
-      console.error("Error reading the file:", err);
-      return;
-    }
+  const data = fs.readFileSync(filePath, "utf8");
+  const jsonData = JSON.parse(data);
+  console.log("🚀 ~ fs.readFile ~ jsonData:", jsonData);
 
-    try {
-      // Parse the JSON data
-      const jsonData = JSON.parse(data);
-      console.log("🚀 ~ fs.readFile ~ jsonData:", jsonData);
-      let arr = [];
-
-      for (let i = 0; i < jsonData.length; i++) {
-        if (jsonData[i].Paino !== "" && typeof jsonData[i].Paino === "number") {
-          const [day, month, year] = jsonData[i]["P�iv�"].split(".");
-          arr.push({
-            weight: jsonData[i].Paino,
-            date: new Date(`${year}-${month}-${day}`),
-          });
-        }
-      }
-      console.log("🚀 ~ fs.readFile ~ arr:", arr);
-    } catch (parseError) {
-      console.error("Error parsing JSON:", parseError);
+  for (let i = 0; i < jsonData.length; i++) {
+    if (jsonData[i].Paino !== "" && typeof jsonData[i].Paino === "number") {
+      const [day, month, year] = jsonData[i]["P�iv�"].split(".");
+      arr.push({
+        weight: jsonData[i].Paino,
+        date: new Date(`${year}-${month}-${day}`),
+      });
     }
-  });
+  }
+  console.log("🚀 ~ fs.readFile ~ arr:", arr);
+  console.log("hello");
+
+  for (let i = 0; i < arr.length; i++) {
+    const test = await db
+      .insertInto("weights")
+      .values({
+        weight: arr[i].weight,
+        date: arr[i].date,
+      })
+      .executeTakeFirst();
+
+    console.log(test);
+  }
 
   await db.destroy();
 }
