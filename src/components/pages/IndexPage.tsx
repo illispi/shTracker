@@ -1,5 +1,5 @@
 import { QueryClientProvider } from "@tanstack/solid-query";
-import { For, type Component } from "solid-js";
+import { For, type Component, Show } from "solid-js";
 import { queryClient, trpc } from "../../utils/trpcClient";
 import WeightInTime from "../WeightInTime";
 
@@ -21,7 +21,15 @@ const IndexSub: Component<{}> = (props) => {
         <div>
           <div>Exercise icon</div>
         </div>
-        <WeightInTime text="last week" weeks={1} weightsDates={weightsDates.data} />
+        <Show when={weightsDates.data}>
+          {(data) => (
+            <WeightInTime
+              text="last week"
+              weeks={1}
+              weightsDates={data()}
+            />
+          )}
+        </Show>
         <For each={weightsDates.data}>
           {(item) => (
             <div>
