@@ -1,9 +1,19 @@
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { createRootRoute, Link, Outlet } from "@tanstack/react-router";
-import { TanStackRouterDevtools } from "@tanstack/router-devtools";
-import { useState } from "react";
-import { trpc } from "../client/client";
-import { httpBatchLink } from "@trpc/client";
+import { Link, Outlet, createRootRoute } from "@tanstack/react-router";
+import React from "react";
+import { Suspense } from "react";
+
+const TanStackRouterDevtools =
+  //BUG this might need to be process.env.NODE_ENV === "production"
+  import.meta.env.PROD === true
+    ? () => null // Render nothing in production
+    : React.lazy(() =>
+        // Lazy load in development
+        import("@tanstack/router-devtools").then((res) => ({
+          default: res.TanStackRouterDevtools,
+          // For Embedded Mode
+          // default: res.TanStackRouterDevtoolsPanel
+        }))
+      );
 
 export const Route = createRootRoute({
   component: () => {
@@ -19,7 +29,9 @@ export const Route = createRootRoute({
         </div>
         <hr />
         <Outlet />
-        <TanStackRouterDevtools />
+        <Suspense>
+          <TanStackRouterDevtools />
+        </Suspense>
       </>
     );
   },

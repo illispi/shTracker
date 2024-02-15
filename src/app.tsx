@@ -1,70 +1,42 @@
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import {
+  RouterProvider,
+  createRouter
+} from "@tanstack/react-router";
+import { httpBatchLink } from "@trpc/client";
 import React, { StrictMode, Suspense } from "react";
 import ReactDOM from "react-dom/client";
-import {
-  Outlet,
-  RouterProvider,
-  Link,
-  createRouter,
-  createRoute,
-  createRootRoute,
-} from "@tanstack/react-router";
+import { trpc } from "./client/client";
 
-const TanStackRouterDevtools =
-  //BUG this might need to be process.env.NODE_ENV === "production"
-  import.meta.env.PROD === true
-    ? () => null // Render nothing in production
-    : React.lazy(() =>
-        // Lazy load in development
-        import("@tanstack/router-devtools").then((res) => ({
-          default: res.TanStackRouterDevtools,
-          // For Embedded Mode
-          // default: res.TanStackRouterDevtoolsPanel
-        }))
-      );
+import { routeTree } from "./routeTree.gen";
 
-const rootRoute = createRootRoute({
-  component: () => (
-    <>
-      <div className="p-2 flex gap-2">
-        <Link to="/" className="[&.active]:font-bold">
-          Home
-        </Link>{" "}
-        <Link to="/about" className="[&.active]:font-bold">
-          About
-        </Link>
-      </div>
-      <hr />
-      <Outlet />
-      <Suspense>
-        <TanStackRouterDevtools />
-      </Suspense>
-    </>
-  ),
+
+const queryClient = new QueryClient();
+
+const trpcClient = trpc.createClient({
+  links: [
+    httpBatchLink({
+      url: "http://localhost:3333/",
+      // You can pass any HTTP headers you wish here
+      // async headers() {
+      //   return {
+      //     authorization: getAuthCookie(),
+      //   };
+      // },
+    }),
+  ],
 });
 
-const indexRoute = createRoute({
-  getParentRoute: () => rootRoute,
-  path: "/",
-  component: function Index() {
-    return (
-      <div className="p-2">
-        <h3>Welcome Home!</h3>
-      </div>
-    );
+const router = createRouter({
+  routeTree,
+  context: {
+    queryClient,
   },
+  defaultPreload: "intent",
+  // Since we're using React Query, we don't want loader calls to ever be stale
+  // This will ensure that the loader is always called when the route is preloaded or visited
+  defaultPreloadStaleTime: 0,
 });
-
-const aboutRoute = createRoute({
-  getParentRoute: () => rootRoute,
-  path: "/about",
-  component: function About() {
-    return <div className="p-2">Hello from About!</div>;
-  },
-});
-
-const routeTree = rootRoute.addChildren([indexRoute, aboutRoute]);
-
-const router = createRouter({ routeTree });
 
 declare module "@tanstack/react-router" {
   interface Register {
@@ -77,7 +49,12 @@ if (!rootElement.innerHTML) {
   const root = ReactDOM.createRoot(rootElement);
   root.render(
     <StrictMode>
-      <RouterProvider router={router} />
+      <trpc.Provider client={trpcClient} queryClient={queryClient}>
+        <QueryClientProvider client={queryClient}>
+          <RouterProvider router={router} />
+        
+        </QueryClientProvider>
+      </trpc.Provider>
     </StrictMode>
   );
 }
