@@ -8,12 +8,14 @@ export const Route = createLazyFileRoute("/")({
 function Index() {
   const test = trpc.getUser.useQuery("hello it's success");
 
-  return (
-    <>
-      <div className="p-2">
-        <h3>Welcome Home!</h3>
-        <p>{test.data?.name}</p>
-      </div>
-    </>
-  );
+  if (test.data) {
+    return (
+      <>
+        <div className="p-2">
+          <h3>Welcome Home!</h3>
+          <p>{test.data?.name}</p>
+        </div>
+      </>
+    );
+  }
 }

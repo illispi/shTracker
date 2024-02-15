@@ -4,7 +4,7 @@ import {
   createRouter
 } from "@tanstack/react-router";
 import { httpBatchLink } from "@trpc/client";
-import React, { StrictMode, Suspense } from "react";
+import { StrictMode } from "react";
 import ReactDOM from "react-dom/client";
 import { trpc } from "./client/client";
 
