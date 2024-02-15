@@ -9,6 +9,7 @@ import ReactDOM from "react-dom/client";
 import { trpc } from "./client/client";
 
 import { routeTree } from "./routeTree.gen";
+import "./index.css"
 
 
 const queryClient = new QueryClient();
