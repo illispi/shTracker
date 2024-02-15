@@ -4,6 +4,8 @@ import { appRouter } from './approuter';
 
 //BUG need to enable cors only for domain in production
 
+console.log("test")
+
 createHTTPServer({
   middleware: cors(),
   router: appRouter,
