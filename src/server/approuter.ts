@@ -21,7 +21,7 @@ export const apiProcedure = publicProcedure.use((opts) => {
 });
 
 export const appRouter = t.router({
-	readWeights,
+	greeting: apiProcedure.query(() => "hello tRPC v10!"),
 });
 
 // export type definition of API

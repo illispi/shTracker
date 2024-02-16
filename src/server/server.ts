@@ -12,6 +12,6 @@ createHTTPServer({
 	router: appRouter,
 	createContext() {
 		console.log("context 3");
-		return { db };
+		return {db};
 	},
 }).listen(3333);
