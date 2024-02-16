@@ -1,17 +1,15 @@
 import { createHTTPServer } from "@trpc/server/adapters/standalone";
 import cors from "cors";
 import { db } from "./db";
-import { appRouter } from "./test";
+import { appRouter } from "./routes";
+import { createContext } from "./serverContext";
 
 //BUG need to enable cors only for domain in production
 //TODO add serve-static
-console.log("Bug, enable cors on production");
+console.log("Bug, enable cors on production2");
 
 createHTTPServer({
 	middleware: cors(),
 	router: appRouter,
-	createContext() {
-		console.log("context 3");
-		return {db};
-	},
+	createContext,
 }).listen(3333);

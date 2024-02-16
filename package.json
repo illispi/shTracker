@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev:server": "bun ./src/server/server.ts",
+    "dev:server": "bun --watch ./src/server/server.ts",
     "dev:client": "vite --host",
     "dev": "run-p dev:* ",
     "build": "bun x @biomejs/biome check --apply ./src && tsc && vite build",
