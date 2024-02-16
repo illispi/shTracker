@@ -11,8 +11,8 @@ function Index() {
 	return (
 		<>
 			<div className="p-2">
-				{weights.data?.map((e) => (
-					<div>
+				{weights.data?.map((e, i) => (
+					<div key={`weight_date_${i}`}>
 						<p>{e.date}</p>
 						<p>{e.weight}</p>
 					</div>

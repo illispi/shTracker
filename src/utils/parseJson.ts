@@ -44,14 +44,18 @@ async function parseJson(dir: string[]) {
 	for (let i = 0; i < jsonData.length; i++) {
 		if (jsonData[i].Paino !== "") {
 			const [day, month, year] = jsonData[i]["P�iv�"].split(".");
-			arr.push({
-				weight: Number(
-					typeof jsonData[i].Paino === "number"
-						? jsonData[i].Paino
-						: jsonData[i].Paino.replace(",", "."),
-				),
-				date: new Date(`${year}-${month}-${day}`),
-			});
+			const weight = Number(
+				typeof jsonData[i].Paino === "number"
+					? jsonData[i].Paino
+					: jsonData[i].Paino.replace(",", "."),
+			);
+
+			if (weight) {
+				arr.push({
+					weight: weight,
+					date: new Date(`${year}-${month}-${day}`),
+				});
+			}
 		}
 	}
 	console.log("🚀 ~ fs.readFile ~ arr:", arr);

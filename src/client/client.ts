@@ -1,5 +1,5 @@
 import { createTRPCReact } from "@trpc/react-query";
-import { AppRouter } from "../server/approuter";
+import { AppRouter } from "../server/routes";
 //     👆 **type-only** import
 
 // Pass AppRouter as generic here. 👇 This lets the `trpc` object know
