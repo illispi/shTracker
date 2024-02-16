@@ -1,6 +1,5 @@
-import { Link, createLazyFileRoute, useNavigate } from "@tanstack/react-router";
+import { createLazyFileRoute } from "@tanstack/react-router";
 import { trpc } from "../client/client";
-import { flushSync } from "react-dom";
 
 export const Route = createLazyFileRoute("/")({
 	component: Index,

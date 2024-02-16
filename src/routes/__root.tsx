@@ -25,9 +25,7 @@ export const Route = createRootRoute({
 					<Helmet>
 						<title>Sh-Tracker</title>
 					</Helmet>
-					<div className="p-2 flex gap-2">
-						<Navbar />
-					</div>
+					<Navbar />
 					<hr />
 					<Outlet />
 					<Suspense>

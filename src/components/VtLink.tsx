@@ -1,7 +1,8 @@
 import { Link, useNavigate, type LinkOptions } from "@tanstack/react-router";
+import { HTMLAttributes } from "react";
 import { flushSync } from "react-dom";
 
-interface CombinedProps extends LinkOptions {
+interface CombinedProps extends LinkOptions, HTMLAttributes<HTMLAnchorElement> {
 	children: React.ReactNode;
 }
 

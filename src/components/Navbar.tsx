@@ -1,3 +1,5 @@
+import VtLink from "./VtLink";
+
 const Navbar = () => {
 	return (
 		<header
@@ -23,12 +25,12 @@ const Navbar = () => {
 				</a>
 
 				<nav className="flex items-center justify-center gap-12">
-					<a className="text-xl font-semibold text-black" href="/">
-						home
-					</a>
-					<a className="text-xl font-semibold text-black" href="/blog">
-						blog
-					</a>
+					<VtLink className="text-xl font-semibold text-black" to="/">
+						Home
+					</VtLink>
+					<VtLink className="text-xl font-semibold text-black" to="/about">
+						About
+					</VtLink>
 				</nav>
 			</div>
 		</header>
