@@ -13,10 +13,11 @@ interface CreateInnerContextOptions
 }
 
 export async function createContext(opts: CreateInnerContextOptions) {
+  const contextInner = await createContextInner();
   return {
-    ...createContextInner,
+    ...contextInner,
     req: opts.req,
     res: opts.res,
   };
 }
-export type Context = Awaited<ReturnType<typeof createContextInner>>;
+export type ContextTrpc = Awaited<ReturnType<typeof createContextInner>>;
