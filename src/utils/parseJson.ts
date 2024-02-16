@@ -33,7 +33,7 @@ async function parseJson(dir: string[]) {
   });
   console.log(__dirname, "dirdir");
 
-  const filePath = path.join(__dirname, "devData/painonpudotuslogi.json");
+  const filePath = path.join(__dirname, "src/devData/weightloss.json");
   let arr = [];
 
   // Read the content of the JSON file
@@ -56,7 +56,7 @@ async function parseJson(dir: string[]) {
 
   for (let i = 0; i < arr.length; i++) {
     const test = await db
-      .insertInto("weights")
+      .insertInto("weight")
       .values({
         weight: arr[i].weight,
         date: arr[i].date,

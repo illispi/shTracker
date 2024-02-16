@@ -10,6 +10,10 @@
     "build": "tsc && vite build",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "sql-types": "bun kysely-codegen --dialect postgres",
+    "migrate:latest": "tsx ./src/utils/migrate.ts",
+    "migrate:down": "tsx ./src/utils/migrate.ts down",
+    "new:migration": "tsx ./src/utils/migrationFilename.ts",
+    "loadJson": "tsx ./src/utils/parseJson.ts",
     "preview": "vite preview --host"
   },
   "dependencies": {

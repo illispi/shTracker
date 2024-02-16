@@ -3,7 +3,7 @@ import { sql } from "kysely";
 
 export async function up(db: Kysely<any>): Promise<void> {
   await db.schema
-    .createTable("weights")
+    .createTable("weight")
     .addColumn("id", "serial", (col) => col.primaryKey())
     .addColumn("date", "timestamptz", (col) => col.notNull())
     .addColumn("weight", "decimal", (col) => col.notNull())
@@ -29,5 +29,5 @@ export async function up(db: Kysely<any>): Promise<void> {
 
 export async function down(db: Kysely<any>): Promise<void> {
   await db.schema.dropTable("settings").ifExists().execute();
-  await db.schema.dropTable("weights").ifExists().execute();
+  await db.schema.dropTable("weight").ifExists().execute();
 }
