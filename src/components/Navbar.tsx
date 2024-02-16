@@ -1,6 +1,11 @@
 const Navbar = () => {
 	return (
-		<header className="sticky top-0 z-50 flex w-full justify-around bg-gradient-to-t from-blue-300 to-blue-200 py-2">
+		<header
+			className="sticky top-0 z-50 flex w-full justify-around bg-gradient-to-t from-blue-300 to-blue-200 py-2"
+			style={{
+				viewTransitionName: "header",
+			}}
+		>
 			<div className="flex w-11/12 max-w-screen-xl items-center justify-between">
 				<a href="/" className="hover:scale-110 transition-transform">
 					<svg

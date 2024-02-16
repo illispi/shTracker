@@ -1,3 +1,30 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@keyframes slideOutFade {
+  to {
+    transform: translateX(-100px);
+    opacity: 0%;
+  }
+}
+@keyframes slideInFade {
+  from {
+    transform: translateX(100px);
+    opacity: 0%;
+  }
+}
+
+::view-transition-old(root) {
+  animation: 300ms ease-in-out both slideOutFade;
+}
+
+::view-transition-new(root) {
+  animation: 300ms ease-in-out both slideInFade;
+}
+
+::view-transition-old(header),
+::view-transition-new(header) {
+  animation: none;
+  mix-blend-mode: normal;
+}
