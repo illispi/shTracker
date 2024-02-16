@@ -3,6 +3,7 @@ import cors from 'cors';
 import { appRouter } from './approuter';
 
 //BUG need to enable cors only for domain in production
+//TODO add serve-static
 console.log("Bug, enable cors on production")
 
 createHTTPServer({
