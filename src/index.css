@@ -28,3 +28,7 @@
   animation: none;
   mix-blend-mode: normal;
 }
+
+body {
+  overflow-y: scroll;
+}

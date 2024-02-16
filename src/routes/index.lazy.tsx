@@ -7,14 +7,12 @@ export const Route = createLazyFileRoute("/")({
 
 function Index() {
 	const weights = trpc.readWeights.useQuery();
-	
 
 	return (
 		<>
 			<div className="p-2">
-				
-				{weights.data?.map((e, i) => (
-					<div key={`weight_date_${i}`}>
+				{weights.data?.map((e) => (
+					<div key={e.id}>
 						<p>{e.date}</p>
 						<p>{e.weight}</p>
 					</div>
