@@ -1,7 +1,7 @@
 import { createHTTPServer } from "@trpc/server/adapters/standalone";
 import cors from "cors";
-import { appRouter } from "./approuter";
 import { db } from "./db";
+import { appRouter } from "./test";
 
 //BUG need to enable cors only for domain in production
 //TODO add serve-static
