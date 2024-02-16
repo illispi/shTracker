@@ -11,6 +11,7 @@ import {
 	Migrator,
 	PostgresDialect,
 } from "kysely";
+import { DB } from "kysely-codegen";
 
 const __dirname = fileURLToPath(new URL("../", import.meta.url));
 
@@ -19,7 +20,7 @@ dotenv.config();
 async function migrateToLatest(dir: string[]) {
 	console.log(dir);
 
-	const db = new Kysely<any>({
+	const db = new Kysely<DB>({
 		//TODO replace any with Database types
 		log: ["error", "query"],
 		dialect: new PostgresDialect({

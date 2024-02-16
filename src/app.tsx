@@ -41,16 +41,18 @@ declare module "@tanstack/react-router" {
 	}
 }
 
-const rootElement = document.getElementById("app")!;
-if (!rootElement.innerHTML) {
-	const root = ReactDOM.createRoot(rootElement);
-	root.render(
-		<StrictMode>
-			<trpc.Provider client={trpcClient} queryClient={queryClient}>
-				<QueryClientProvider client={queryClient}>
-					<RouterProvider router={router} />
-				</QueryClientProvider>
-			</trpc.Provider>
-		</StrictMode>,
-	);
+const rootElement = document.getElementById("app");
+if (rootElement) {
+	if (!rootElement.innerHTML) {
+		const root = ReactDOM.createRoot(rootElement);
+		root.render(
+			<StrictMode>
+				<trpc.Provider client={trpcClient} queryClient={queryClient}>
+					<QueryClientProvider client={queryClient}>
+						<RouterProvider router={router} />
+					</QueryClientProvider>
+				</trpc.Provider>
+			</StrictMode>,
+		);
+	}
 }
