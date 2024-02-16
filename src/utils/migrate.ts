@@ -55,13 +55,19 @@ async function migrateToLatest(dir: string[]) {
 			? await migrator.migrateDown()
 			: await migrator.migrateToLatest();
 
-	results?.forEach((it) => {
+	if (!results) {
+		console.log("migrator failed");
+		await db.destroy();
+		return;
+	}
+
+	for (const it of results) {
 		if (it.status === "Success") {
 			console.log(`migration "${it.migrationName}" was executed successfully`);
 		} else if (it.status === "Error") {
 			console.error(`failed to execute migration "${it.migrationName}"`);
 		}
-	});
+	}
 
 	if (error) {
 		console.error("failed to migrate");
