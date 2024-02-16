@@ -33,7 +33,7 @@ async function parseJson(dir: string[]) {
   });
   console.log(__dirname, "dirdir");
 
-  const filePath = path.join(__dirname, "data/painonpudotuslogi.json");
+  const filePath = path.join(__dirname, "devData/painonpudotuslogi.json");
   let arr = [];
 
   // Read the content of the JSON file
@@ -43,6 +43,7 @@ async function parseJson(dir: string[]) {
 
   for (let i = 0; i < jsonData.length; i++) {
     if (jsonData[i].Paino !== "" && typeof jsonData[i].Paino === "number") {
+      //TODO convert 22,3 to 22.3
       const [day, month, year] = jsonData[i]["P�iv�"].split(".");
       arr.push({
         weight: jsonData[i].Paino,
