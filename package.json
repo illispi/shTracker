@@ -23,7 +23,6 @@
     "@tanstack/router-devtools": "^1.16.0",
     "@tanstack/router-vite-plugin": "^1.16.1",
     "@trpc/client": "next",
-    "@trpc/next": "next",
     "@trpc/react-query": "next",
     "@trpc/server": "next",
     "@types/pg": "^8.11.0",

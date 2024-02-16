@@ -1,6 +1,6 @@
 import { initTRPC } from "@trpc/server";
-import { readWeights } from "./routes/weightRoutes";
 import { type ContextTrpc } from "./serverContext";
+import { readWeights } from "./routes/weightRoutes";
 
 export const t = initTRPC.context<ContextTrpc>().create();
 
