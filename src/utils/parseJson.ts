@@ -42,11 +42,14 @@ async function parseJson(dir: string[]) {
 	console.log("🚀 ~ fs.readFile ~ jsonData:", jsonData);
 
 	for (let i = 0; i < jsonData.length; i++) {
-		if (jsonData[i].Paino !== "" && typeof jsonData[i].Paino === "number") {
-			//TODO convert 22,3 to 22.3
+		if (jsonData[i].Paino !== "") {
 			const [day, month, year] = jsonData[i]["P�iv�"].split(".");
 			arr.push({
-				weight: jsonData[i].Paino,
+				weight: Number(
+					typeof jsonData[i].Paino === "number"
+						? jsonData[i].Paino
+						: jsonData[i].Paino.replace(",", "."),
+				),
 				date: new Date(`${year}-${month}-${day}`),
 			});
 		}

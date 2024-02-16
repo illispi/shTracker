@@ -6,7 +6,7 @@ import { createContext } from "./serverContext";
 
 //BUG need to enable cors only for domain in production
 //TODO add serve-static
-console.log("Bug, enable cors on production2");
+console.log("Bug, enable cors on production");
 
 createHTTPServer({
 	middleware: cors(),
