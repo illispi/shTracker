@@ -5,36 +5,36 @@ import { Helmet, HelmetProvider } from "react-helmet-async";
 import Navbar from "../components/Navbar";
 
 const TanStackRouterDevtools =
-  //BUG this might need to be process.env.NODE_ENV === "production"
-  import.meta.env.PROD === true
-    ? () => null // Render nothing in production
-    : React.lazy(() =>
-        // Lazy load in development
-        import("@tanstack/router-devtools").then((res) => ({
-          default: res.TanStackRouterDevtools,
-          // For Embedded Mode
-          // default: res.TanStackRouterDevtoolsPanel
-        }))
-      );
+	//BUG this might need to be process.env.NODE_ENV === "production"
+	import.meta.env.PROD === true
+		? () => null // Render nothing in production
+		: React.lazy(() =>
+				// Lazy load in development
+				import("@tanstack/router-devtools").then((res) => ({
+					default: res.TanStackRouterDevtools,
+					// For Embedded Mode
+					// default: res.TanStackRouterDevtoolsPanel
+				})),
+		  );
 
 export const Route = createRootRoute({
-  component: () => {
-    return (
-      <>
-        <HelmetProvider>
-          <Helmet>
-            <title>Sh-Tracker</title>
-          </Helmet>
-          <div className="p-2 flex gap-2">
-            <Navbar />
-          </div>
-          <hr />
-          <Outlet />
-          <Suspense>
-            <TanStackRouterDevtools />
-          </Suspense>
-        </HelmetProvider>
-      </>
-    );
-  },
+	component: () => {
+		return (
+			<>
+				<HelmetProvider>
+					<Helmet>
+						<title>Sh-Tracker</title>
+					</Helmet>
+					<div className="p-2 flex gap-2">
+						<Navbar />
+					</div>
+					<hr />
+					<Outlet />
+					<Suspense>
+						<TanStackRouterDevtools />
+					</Suspense>
+				</HelmetProvider>
+			</>
+		);
+	},
 });

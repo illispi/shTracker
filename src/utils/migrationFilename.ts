@@ -1,12 +1,12 @@
-import { fileURLToPath } from "node:url";
 import { writeFileSync } from "node:fs";
 import { resolve } from "node:path";
+import { fileURLToPath } from "node:url";
 
 const __dirname = fileURLToPath(new URL(".", import.meta.url));
 
 const convertToIso = (n: number) => {
-  return n.toString().length > 1 ? n : `0${n.toString()}`;
-}
+	return n.toString().length > 1 ? n : `0${n.toString()}`;
+};
 
 const date = new Date();
 const year = date.getFullYear();
@@ -30,9 +30,9 @@ export async function down(db: Kysely<any>): Promise<void> {
 const name = process.argv.slice(2).join("_").toLowerCase();
 
 writeFileSync(
-  resolve(
-    __dirname,
-    `../migrations/${year}_${month}_${day}_${hours}_${minutes}_${seconds}_${name}.ts`
-  ),
-  code
+	resolve(
+		__dirname,
+		`../migrations/${year}_${month}_${day}_${hours}_${minutes}_${seconds}_${name}.ts`,
+	),
+	code,
 );
