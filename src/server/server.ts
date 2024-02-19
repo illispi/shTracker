@@ -8,8 +8,17 @@ import { createContext } from "./serverContext";
 //TODO add serve-static
 console.log("Bug, enable cors on production");
 
+function signalHandler(signal) {
+	// do some stuff here
+	process.exit();
+}
+
 createHTTPServer({
 	middleware: cors(),
 	router: appRouter,
 	createContext,
-}).listen(3333);
+})
+	.on("SIGINT", signalHandler)
+	.on("SIGTERM", signalHandler)
+	.on("SIGQUIT", signalHandler)
+	.listen(3333);
