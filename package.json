@@ -19,6 +19,7 @@
   },
   "dependencies": {
     "@tanstack/react-query": "latest",
+    "@tanstack/react-query-devtools": "^5.21.7",
     "@tanstack/react-router": "^1.16.0",
     "@tanstack/router-devtools": "^1.16.0",
     "@tanstack/router-vite-plugin": "^1.16.1",

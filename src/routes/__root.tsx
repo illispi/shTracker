@@ -1,6 +1,5 @@
-import { Link, Outlet, createRootRoute } from "@tanstack/react-router";
-import React from "react";
-import { Suspense } from "react";
+import { Outlet, createRootRoute } from "@tanstack/react-router";
+import React, { Suspense } from "react";
 import { Helmet, HelmetProvider } from "react-helmet-async";
 import Navbar from "../components/Navbar";
 
@@ -16,6 +15,18 @@ const TanStackRouterDevtools =
 					// default: res.TanStackRouterDevtoolsPanel
 				})),
 		  );
+const ReactDevtools =
+	//BUG this might need to be process.env.NODE_ENV === "production"
+	import.meta.env.PROD === true
+		? () => null // Render nothing in production
+		: React.lazy(() =>
+				// Lazy load in development
+				import("@tanstack/react-query-devtools").then((res) => ({
+					default: res.ReactQueryDevtools,
+					// For Embedded Mode
+					// default: res.TanStackRouterDevtoolsPanel
+				})),
+		  );
 
 export const Route = createRootRoute({
 	component: () => {
@@ -23,13 +34,14 @@ export const Route = createRootRoute({
 			<>
 				<HelmetProvider>
 					<Helmet>
-						<title>Sh-Tracker</title>
+						<title>Home - Sh-Tracker</title>
 					</Helmet>
 					<Navbar />
 					<hr />
 					<Outlet />
 					<Suspense>
 						<TanStackRouterDevtools />
+						<ReactDevtools />
 					</Suspense>
 				</HelmetProvider>
 			</>
