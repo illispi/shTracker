@@ -13,7 +13,7 @@ const queryClient = new QueryClient();
 const trpcClient = trpc.createClient({
 	links: [
 		httpBatchLink({
-			url: "http://localhost:3333/",
+			url: "http://192.168.50.55:3333/",
 			// You can pass any HTTP headers you wish here
 			// async headers() {
 			//   return {
