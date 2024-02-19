@@ -23,7 +23,17 @@ function Index() {
 	return (
 		<>
 			<div className="p-2 w-full flex flex-col justify-center items-center">
-				<Line data={data} />
+				<div className="h-[50svh] w-full max-w-screen-2xl flex items-center justify-center">
+					<Line
+						data={data}
+						options={{
+							maintainAspectRatio: false,
+							plugins: {
+								tooltip: { bodyFont: { size: 18 }, titleFont: { size: 18 } },
+							},
+						}}
+					/>
+				</div>
 				{weights.data?.map((e) => (
 					<div key={e.id}>
 						<p>{e.date}</p>
